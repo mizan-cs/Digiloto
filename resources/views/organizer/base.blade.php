@@ -123,7 +123,7 @@
             </a>
         </li>
         <li class="gold">
-            <a href="gallery.html">
+            <a href="{{route('organizer.settings')}}">
                 <i class="font-icon font-icon-picture-2"></i>
                 <span class="lbl">Settings</span>
             </a>

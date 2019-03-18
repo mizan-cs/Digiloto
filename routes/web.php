@@ -12,18 +12,26 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+	return view('welcome');
 });
 
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
-
-Route::get('/operator','OrganizerController@dashboard')->name('organizer.dashboard');
 Route::get('/operator/become','OrganizerController@create')->name('organizer.create');
 Route::post('/operator/become','OrganizerController@store')->name('organizer.store');
 
 
+Route::group(['middleware' => ['operator']], function () {
+	Route::get('/operator','OrganizerController@dashboard')->name('organizer.dashboard');
+	Route::get('/operator/settings','OrganizerController@settings')->name('organizer.settings');
+	Route::patch('/operator/{id}','OrganizerController@update');
+	
+});
+
+
+
+
 Route::group(['prefix' => 'admin'], function () {
-    Voyager::routes();
+	Voyager::routes();
 });

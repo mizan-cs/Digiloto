@@ -17,7 +17,7 @@ class User extends \TCG\Voyager\Models\User
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'name', 'email', 'password','is_operator','is_active'
     ];
 
     /**
@@ -37,5 +37,22 @@ class User extends \TCG\Voyager\Models\User
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+
+    public function organizer()
+    {
+        return $this->hasMany(Organizer::class);
+    }
+
+
+    public function isOperator()
+    {
+        if ($this->is_operator) {
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
 
 }

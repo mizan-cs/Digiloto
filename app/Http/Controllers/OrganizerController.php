@@ -2,22 +2,19 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Auth;
 use App\Organizer;
 use Illuminate\Http\Request;
+use App\User;
 
 class OrganizerController extends Controller
 {
 
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
 
+ public function __construct()
+ {
+    $this->middleware('auth');
+}
     /**
      * Display a listing of the resource.
      *
@@ -46,7 +43,27 @@ class OrganizerController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = $request->validate([
+            'title' => 'required',
+            'email' => 'required',
+            'details' => 'required',
+        ]);
+
+        if ($file = $request->file('logo')){
+            $name = time() . $file->getClientOriginalName();
+            $file->move('images',$name);
+            $data['logo'] = $name;
+        }
+        $data['user_id'] = Auth::user()->id;
+
+        Organizer::create($data);
+
+        $user = User::findOrFail(Auth::user()->id);
+
+        $user->update(['is_operator' => 1]);
+
+        return redirect(route('organizer.dashboard'));
+
     }
 
     /**
@@ -78,9 +95,43 @@ class OrganizerController extends Controller
      * @param  \App\Organizer  $organizer
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Organizer $organizer)
+    public function update(Request $request, Organizer $organizer,$id)
     {
-        //
+        $organizer = Organizer::findOrFail($id);
+
+        abort_if($organizer->user_id !== Auth::user()->id,403);
+
+        $data = $request->validate([
+            'title' => 'required',
+            'details' => 'required',
+            'email' => 'required',
+        ]);
+
+        if ($file = $request->file('logo')){
+            if (file_exists($organizer->logo)) {
+                unlink($organizer->logo);    
+            }
+
+            $name = time() . $file->getClientOriginalName();
+            $file->move('images',$name);
+            $data['logo'] = $name;
+        }   
+
+        if ($file = $request->file('banner')){
+            if (file_exists($organizer->banner)) {
+                unlink($organizer->banner);    
+            }
+
+            $name = time() . $file->getClientOriginalName();
+            $file->move('images',$name);
+            $data['banner'] = $name;
+        }
+
+        $organizer->update($data);
+
+         return redirect(route('organizer.dashboard'))->with('message','Update Successfully');
+
+        
     }
 
     /**
@@ -97,5 +148,11 @@ class OrganizerController extends Controller
     public function dashboard()
     {
         return view('organizer.dashboard');
+    }
+
+    public function settings(Organizer $organizer)
+    {
+        $organizer = Auth::user()->organizer()->whereUserId(auth()->id())->first();
+        return view('organizer.settings',compact('organizer'));
     }
 }

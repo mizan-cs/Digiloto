@@ -8,7 +8,7 @@
                     <div class="card-header">Become A Loto Operator</div>
 
                     <div class="card-body">
-                        <form method="POST" action="{{ route('organizer.store') }}">
+                        <form method="POST" action="{{ route('organizer.store') }}" enctype="multipart/form-data">
                             @csrf
 
                             <div class="form-group row">
