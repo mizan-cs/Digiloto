@@ -4,10 +4,16 @@
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-8">
+
                 <div class="card">
                     <div class="card-header">Become A Loto Operator</div>
 
                     <div class="card-body">
+                        @if (session('status'))
+                            <div class="alert {{ Session::get('alert-class', 'alert-info') }}" role="alert">
+                                {!! session('status') !!}
+                            </div>
+                        @endif
                         <form method="POST" action="{{ route('organizer.store') }}" enctype="multipart/form-data">
                             @csrf
 

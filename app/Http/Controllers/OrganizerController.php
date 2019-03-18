@@ -32,6 +32,8 @@ class OrganizerController extends Controller
      */
     public function create()
     {
+        \Session::flash('status', 'This is a flash Message');
+        \Session::flash('alert-class', 'alert-success');
         return view('organizer.create');
     }
 
@@ -43,6 +45,40 @@ class OrganizerController extends Controller
      */
     public function store(Request $request)
     {
+        dd($request->all());
+        // validate
+        $rules = array(
+            'title'                 => 'required|string|max:255',
+            'email'                 => 'required|email|max:255',
+            'logo'                  => 'mimes:jpeg,bmp,png,jpg',
+            'remember'            => 'required|true',
+
+        );
+        $validator = \Validator::make($request->all(), $rules);
+
+        // process the login
+        if ($validator->fails()) {
+            return \Redirect::route('')
+                ->withErrors($validator)
+                ->withInput();
+        } else {
+
+            \Session::flash('status', 'Your operator has been created');
+            \Session::flash('alert-class', 'alert-success');
+            return \Redirect::route('organizer.create');
+        }
+
+
+
+
+
+
+
+
+
+
+
+
         $data = $request->validate([
             'title' => 'required',
             'email' => 'required',

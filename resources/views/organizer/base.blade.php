@@ -165,6 +165,11 @@
 </nav><!--.side-menu-->
 
 <div class="page-content">
+    @if (session('status'))
+        <div class="alert {{ Session::get('alert-class', 'alert-info') }}" role="alert">
+            {!! session('status') !!}
+        </div>
+    @endif
     @yield('content')
 </div><!--.page-content-->
 
