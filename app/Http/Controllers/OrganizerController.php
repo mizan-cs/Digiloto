@@ -130,7 +130,7 @@ class OrganizerController extends Controller
      */
     public function update(Request $request)
     {
-        
+
         $organizer = Auth::user()->organizers()->first();
         abort_if($organizer->user_id !== Auth::user()->id,403);
 

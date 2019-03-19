@@ -2,15 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="919407f9-09d9-43ff-a7d6-0b2d244d77c8" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/resources/views/organizer/game/base.blade.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/views/organizer/game/create.blade.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/views/organizer/game/dashboard.blade.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/views/organizer/game/index.blade.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/views/organizer/game/settings.blade.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/views/organizer/game/tickets.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/Games.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/Http/Controllers/GamesController.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/database/migrations/2019_03_19_124923_create_games_table.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/database/migrations/2019_03_19_125749_create_tickets_table.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/OrganizerController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/OrganizerController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Organizer.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Organizer.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/organizer/base.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/organizer/base.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/organizer/dashboard.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/organizer/dashboard.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -52,6 +49,15 @@
           </provider>
         </entry>
       </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/routes/web.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="212">
+              <caret line="44" lean-forward="true" selection-start-line="44" selection-end-line="44" />
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/Providers/EventServiceProvider.php">
           <provider selected="true" editor-type-id="text-editor" />
@@ -66,11 +72,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/Http/Controllers/OrganizerController.php">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="406">
-              <caret line="132" column="8" lean-forward="true" selection-start-line="132" selection-start-column="8" selection-end-line="132" selection-end-column="8" />
+              <caret line="132" lean-forward="true" selection-start-line="132" selection-end-line="132" />
               <folding>
                 <element signature="e#40#76#0#PHP" expanded="true" />
               </folding>
@@ -98,15 +104,6 @@
               <folding>
                 <element signature="e#33#72#0#PHP" expanded="true" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/Http/Controllers/HomeController.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="56">
-              <caret line="16" column="5" selection-start-line="8" selection-start-column="4" selection-end-line="16" selection-end-column="5" />
             </state>
           </provider>
         </entry>
@@ -161,7 +158,6 @@
         <option value="$PROJECT_DIR$/resources/views/organizer/game/index.blade.php" />
         <option value="$PROJECT_DIR$/resources/views/organizer/game/dashboard.blade.php" />
         <option value="$PROJECT_DIR$/database/migrations/2019_03_19_164512_create_tickets_table.php" />
-        <option value="$PROJECT_DIR$/routes/web.php" />
         <option value="$PROJECT_DIR$/resources/views/organizer/game/settings.blade.php" />
         <option value="$PROJECT_DIR$/resources/views/organizer/game/base.blade.php" />
         <option value="$PROJECT_DIR$/app/Ticket.php" />
@@ -169,6 +165,7 @@
         <option value="$PROJECT_DIR$/resources/views/organizer/game/tickets.blade.php" />
         <option value="$PROJECT_DIR$/app/Http/Controllers/TicketController.php" />
         <option value="$PROJECT_DIR$/app/Http/Controllers/OrganizerController.php" />
+        <option value="$PROJECT_DIR$/routes/web.php" />
       </list>
     </option>
   </component>
@@ -357,12 +354,12 @@
       <workItem from="1552757692744" duration="3190000" />
       <workItem from="1552854397225" duration="286000" />
       <workItem from="1552854849680" duration="12023000" />
-      <workItem from="1552931333158" duration="17855000" />
+      <workItem from="1552931333158" duration="18235000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="39495000" />
+    <option name="totallyTimeSpent" value="39875000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
@@ -615,13 +612,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/routes/web.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="316">
-          <caret line="31" column="109" lean-forward="true" selection-start-line="31" selection-start-column="109" selection-end-line="31" selection-end-column="109" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/resources/views/organizer/game/base.blade.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="238">
@@ -833,10 +823,17 @@
     <entry file="file://$PROJECT_DIR$/app/Http/Controllers/OrganizerController.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="406">
-          <caret line="132" column="8" lean-forward="true" selection-start-line="132" selection-start-column="8" selection-end-line="132" selection-end-column="8" />
+          <caret line="132" lean-forward="true" selection-start-line="132" selection-end-line="132" />
           <folding>
             <element signature="e#40#76#0#PHP" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/routes/web.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="212">
+          <caret line="44" lean-forward="true" selection-start-line="44" selection-end-line="44" />
         </state>
       </provider>
     </entry>
