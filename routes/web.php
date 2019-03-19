@@ -26,7 +26,7 @@ Route::group(['middleware' => ['operator']], function () {
 	Route::get('/operator','OrganizerController@dashboard')->name('organizer.dashboard');
 	Route::get('/operator/settings','OrganizerController@settings')->name('organizer.settings');
 	Route::patch('/operator/{id}','OrganizerController@update');
-	
+	// Route::get();
 });
 
 
