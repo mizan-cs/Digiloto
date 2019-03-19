@@ -34,6 +34,7 @@ class OrganizerController extends Controller
      */
     public function create()
     {
+        //TODO Check the validation
         if (Auth::user()->organizers()->count()){
             \Session::flash('status', 'You are already a operator. Welcome to your dashboard');
             \Session::flash('alert-class', 'alert-warning');
@@ -129,6 +130,7 @@ class OrganizerController extends Controller
      */
     public function update(Request $request)
     {
+        
         $organizer = Auth::user()->organizers()->first();
         abort_if($organizer->user_id !== Auth::user()->id,403);
 
@@ -180,7 +182,7 @@ class OrganizerController extends Controller
 
     public function dashboard()
     {
-
+        //TODO Check the validation
         $tab = 'dashboard';
         $organizer = Auth::user()->organizers()->first();
         return view('organizer.dashboard',compact('organizer', 'tab'));
@@ -190,6 +192,7 @@ class OrganizerController extends Controller
     public function settings(Organizer $organizer)
     {
 
+        //TODO Check the validation
         $tab = 'settings';
         $organizer = Auth::user()->organizers()->first();
         if ($this->check_if_user_own_this_org($organizer))
@@ -207,6 +210,7 @@ class OrganizerController extends Controller
 
     public function check_if_user_own_this_org(Organizer $organizer)
     {
+
        return $organizer->user->id == Auth::user()->id;
     }
 }

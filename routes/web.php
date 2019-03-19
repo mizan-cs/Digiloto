@@ -26,7 +26,17 @@ Route::group(['middleware' => ['operator']], function () {
 	Route::get('/operator','OrganizerController@dashboard')->name('organizer.dashboard');
 	Route::get('/operator/settings','OrganizerController@settings')->name('organizer.settings');
 	Route::post('/operator/settings','OrganizerController@update')->name('organizer.update');
-	
+
+	// Game Manager
+    Route::get('/operator/games','GameController@index')->name('organizer.game.index');
+    Route::get('/operator/games/dashboard/{game}','GameController@dashboard')->name('organizer.game.dashboard');
+    Route::get('/operator/games/settings/{game}','GameController@settings')->name('organizer.game.settings');
+    Route::post('/operator/games/update/{game}','GameController@update')->name('organizer.game.update');
+    Route::get('/operator/create','GameController@create')->name('organizer.game.create');
+    Route::post('/operator/create','GameController@store')->name('organizer.game.store');
+
+    //tickets
+    Route::get('/operator/games/dashboard/tickets/{game}','TicketController@dashboard')->name('organizer.game.dashboard.tickets');
 });
 
 

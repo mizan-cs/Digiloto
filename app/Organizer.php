@@ -34,4 +34,9 @@ class Organizer extends Model
     // 	}
     // 	return flase;
     // }
+
+    public function games()
+    {
+        return $this->hasMany(Game::class);
+    }
 }

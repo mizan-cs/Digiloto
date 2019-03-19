@@ -97,27 +97,29 @@
 <nav class="side-menu">
     <ul class="side-menu-list">
         <li class="grey with-sub @if($tab == 'dashboard') opened @endif">
-	            <span>
+            <a href="{{route('organizer.dashboard')}}">
+                <span>
 	                <i class="font-icon font-icon-dashboard"></i>
 	                <span class="lbl">Dashboard</span>
-	            </span>
+                </span>
+            </a>
         </li>
 
 
         <li class="blue-dirty">
-            <a href="list-tasks.html">
+            <a href="">
                 <i class="font-icon font-icon-user"></i>
                 <span class="lbl">Users</span>
             </a>
         </li>
         <li class="aquamarine">
-            <a href="contacts-page.html">
+            <a href="">
                 <i class="font-icon font-icon-mail"></i>
                 <span class="lbl">Supports</span>
             </a>
         </li>
         <li class="blue">
-            <a href="files.html">
+            <a href="">
                 <i class="font-icon glyphicon glyphicon-paperclip"></i>
                 <span class="lbl">Earning</span>
             </a>
@@ -135,14 +137,14 @@
     <section>
         <header class="side-menu-title">Games</header>
         <ul class="side-menu-list">
-            <li>
-                <a href="#">
+            <li class="@if($tab == 'games') opened @endif">
+                <a href="{{route('organizer.game.index')}}">
                     <i class="tag-color green"></i>
                     <span class="lbl">Games</span>
                 </a>
             </li>
-            <li>
-                <a href="#">
+            <li class="@if($tab == 'create-games') opened @endif">
+                <a href="{{route('organizer.game.create')}}">
                     <i class="tag-color grey-blue"></i>
                     <span class="lbl">Host New Games</span>
                 </a>
