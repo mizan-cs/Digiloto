@@ -96,7 +96,7 @@
 <div class="mobile-menu-left-overlay"></div>
 <nav class="side-menu">
     <ul class="side-menu-list">
-        <li class="grey with-sub opened">
+        <li class="grey with-sub @if($tab == 'dashboard') opened @endif">
 	            <span>
 	                <i class="font-icon font-icon-dashboard"></i>
 	                <span class="lbl">Dashboard</span>
@@ -122,7 +122,7 @@
                 <span class="lbl">Earning</span>
             </a>
         </li>
-        <li class="gold">
+        <li class="gold @if($tab == 'settings') opened @endif">
             <a href="{{route('organizer.settings')}}">
                 <i class="font-icon font-icon-picture-2"></i>
                 <span class="lbl">Settings</span>
@@ -165,11 +165,13 @@
 </nav><!--.side-menu-->
 
 <div class="page-content">
-    @if (session('status'))
-        <div class="alert {{ Session::get('alert-class', 'alert-info') }}" role="alert">
-            {!! session('status') !!}
-        </div>
-    @endif
+    <div class="container-fluid">
+        @if (session('status'))
+            <div class="alert {{ Session::get('alert-class', 'alert-info') }}" role="alert">
+                {!! session('status') !!}
+            </div>
+        @endif
+    </div>
     @yield('content')
 </div><!--.page-content-->
 

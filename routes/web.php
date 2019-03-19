@@ -25,8 +25,13 @@ Route::post('/operator/become','OrganizerController@store')->name('organizer.sto
 Route::group(['middleware' => ['operator']], function () {
 	Route::get('/operator','OrganizerController@dashboard')->name('organizer.dashboard');
 	Route::get('/operator/settings','OrganizerController@settings')->name('organizer.settings');
+<<<<<<< HEAD
 	Route::patch('/operator/{id}','OrganizerController@update');
 	// Route::get();
+=======
+	Route::post('/operator/settings','OrganizerController@update')->name('organizer.update');
+	
+>>>>>>> c8f141ab20fe7b46282fcf196621ba2653d0b362
 });
 
 
