@@ -32,9 +32,12 @@ class OrganizerController extends Controller
      */
     public function create()
     {
-        \Session::flash('status', 'This is a flash Message');
-        \Session::flash('alert-class', 'alert-success');
-        return view('organizer.create');
+        if (count(Organizer::where('user_id',Auth::user()->id)->get()) == 0 ){
+            return view('organizer.create');
+        }else{
+            $organizer = Organizer::where('user_id',Auth::user()->id)->first()->get();
+            return view('organizer.dashboard',compact('organizer'));
+        }
     }
 
     /**
@@ -45,62 +48,52 @@ class OrganizerController extends Controller
      */
     public function store(Request $request)
     {
-        dd($request->all());
+
         // validate
         $rules = array(
             'title'                 => 'required|string|max:255',
             'email'                 => 'required|email|max:255',
-            'logo'                  => 'mimes:jpeg,bmp,png,jpg',
-            'remember'            => 'required|true',
+            'logo'                  => 'required|mimes:jpeg,bmp,png,jpg',
+            'remember'            => 'required',
 
         );
         $validator = \Validator::make($request->all(), $rules);
-
         // process the login
         if ($validator->fails()) {
-            return \Redirect::route('')
-                ->withErrors($validator)
-                ->withInput();
+            return \Redirect::route('organizer.create')
+            ->withErrors($validator)
+            ->withInput();
         } else {
+
+            if (count(Organizer::where('user_id',Auth::user()->id)->get()) == 0 ){
+
+               if ($file = $request->file('logo')){
+                $name = time() . $file->getClientOriginalName();
+                $file->move('images',$name);
+                $data['logo'] = $name;
+            }
+            $data['user_id'] = Auth::user()->id;
+
+            Organizer::create($data); // data insert to organizer table
+
+            $user = User::findOrFail(Auth::user()->id); 
+
+            $user->update(['is_operator' => 1]); // user is_operator table updated
+
+            $organizer = Organizer::where('user_id',Auth::user()->id)->first()->get();
 
             \Session::flash('status', 'Your operator has been created');
             \Session::flash('alert-class', 'alert-success');
+            return \Redirect::route('organizer.dashboard',compact('organizer'));
+        }else{
+            \Session::flash('status', 'You allready register as operator');
+            \Session::flash('alert-class', 'alert-danger');
             return \Redirect::route('organizer.create');
         }
 
-
-
-
-
-
-
-
-
-
-
-
-        $data = $request->validate([
-            'title' => 'required',
-            'email' => 'required',
-            'details' => 'required',
-        ]);
-
-        if ($file = $request->file('logo')){
-            $name = time() . $file->getClientOriginalName();
-            $file->move('images',$name);
-            $data['logo'] = $name;
-        }
-        $data['user_id'] = Auth::user()->id;
-
-        Organizer::create($data);
-
-        $user = User::findOrFail(Auth::user()->id);
-
-        $user->update(['is_operator' => 1]);
-
-        return redirect(route('organizer.dashboard'));
-
     }
+
+}
 
     /**
      * Display the specified resource.
@@ -165,7 +158,7 @@ class OrganizerController extends Controller
 
         $organizer->update($data);
 
-         return redirect(route('organizer.dashboard'))->with('message','Update Successfully');
+        return redirect(route('organizer.dashboard'))->with('message','Update Successfully');
 
         
     }
@@ -183,7 +176,9 @@ class OrganizerController extends Controller
 
     public function dashboard()
     {
-        return view('organizer.dashboard');
+        $organizer = Organizer::where('user_id',Auth::user()->id)->first();
+        return view('organizer.dashboard',compact('organizer'));
+        // return $organizer;
     }
 
     public function settings(Organizer $organizer)

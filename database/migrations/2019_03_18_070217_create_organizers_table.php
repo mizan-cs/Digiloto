@@ -24,6 +24,8 @@ class CreateOrganizersTable extends Migration
             $table->text('notice')->nullable();
             $table->unsignedBigInteger('user_id');
             $table->timestamps();
+
+            
             $table->foreign('user_id')->references('id')->on('users');
         });
     }
