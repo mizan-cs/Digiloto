@@ -4,8 +4,7 @@
 @if($organizer)
 <div class="container-fluid">
     <div class="col-md-12">
-        <form method="POST" action="/operator/{{$organizer->id}} " enctype="multipart/form-data">
-           @method('PATCH')
+        <form method="POST" action="{{route('organizer.update')}}" enctype="multipart/form-data">
            @csrf
            <div class="row">
             <div class=" col-md-4 ">

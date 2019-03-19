@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Organizer;
 use Illuminate\Http\Request;
 use App\User;
+use Illuminate\Support\Facades\Redirect;
 
 class OrganizerController extends Controller
 {
@@ -13,6 +14,7 @@ class OrganizerController extends Controller
 
  public function __construct()
  {
+     $tab = 'tab';
     $this->middleware('auth');
 }
     /**
@@ -32,11 +34,12 @@ class OrganizerController extends Controller
      */
     public function create()
     {
-        if (count(Organizer::where('user_id',Auth::user()->id)->get()) == 0 ){
-            return view('organizer.create');
+        if (Auth::user()->organizers()->count()){
+            \Session::flash('status', 'You are already a operator. Welcome to your dashboard');
+            \Session::flash('alert-class', 'alert-warning');
+            return Redirect::route('organizer.dashboard');
         }else{
-            $organizer = Organizer::where('user_id',Auth::user()->id)->first()->get();
-            return view('organizer.dashboard',compact('organizer'));
+            return view('organizer.create');
         }
     }
 
@@ -65,30 +68,30 @@ class OrganizerController extends Controller
             ->withInput();
         } else {
 
-            if (count(Organizer::where('user_id',Auth::user()->id)->get()) == 0 ){
+            if (Auth::user()->organizers()->count() == 0){
 
                if ($file = $request->file('logo')){
                 $name = time() . $file->getClientOriginalName();
                 $file->move('images',$name);
                 $data['logo'] = $name;
             }
-            $data['user_id'] = Auth::user()->id;
 
-            Organizer::create($data); // data insert to organizer table
+               $data['user_id'] = Auth::user()->id;
+               Organizer::create($data);
 
-            $user = User::findOrFail(Auth::user()->id); 
+               $user = Auth::user()->id;
+               $user->is_operator = true;
+               $user->save();
+               $organizer = Auth::user()->organizers()->first();
 
-            $user->update(['is_operator' => 1]); // user is_operator table updated
-
-            $organizer = Organizer::where('user_id',Auth::user()->id)->first()->get();
-
-            \Session::flash('status', 'Your operator has been created');
-            \Session::flash('alert-class', 'alert-success');
-            return \Redirect::route('organizer.dashboard',compact('organizer'));
+               \Session::flash('status', 'Your operator has been created');
+               \Session::flash('alert-class', 'alert-success');
+               return \Redirect::route('organizer.dashboard',compact('organizer'));
         }else{
-            \Session::flash('status', 'You allready register as operator');
-            \Session::flash('alert-class', 'alert-danger');
-            return \Redirect::route('organizer.create');
+
+                \Session::flash('status', 'You are already a operator. Welcome to your dashboard');
+                \Session::flash('alert-class', 'alert-danger');
+                return \Redirect::route('organizer.create');
         }
 
     }
@@ -124,10 +127,9 @@ class OrganizerController extends Controller
      * @param  \App\Organizer  $organizer
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Organizer $organizer,$id)
+    public function update(Request $request)
     {
-        $organizer = Organizer::findOrFail($id);
-
+        $organizer = Auth::user()->organizers()->first();
         abort_if($organizer->user_id !== Auth::user()->id,403);
 
         $data = $request->validate([
@@ -158,7 +160,9 @@ class OrganizerController extends Controller
 
         $organizer->update($data);
 
-        return redirect(route('organizer.dashboard'))->with('message','Update Successfully');
+        \Session::flash('status', 'Settings Updated Successfully');
+        \Session::flash('alert-class', 'alert-success');
+        return redirect(route('organizer.settings'));
 
         
     }
@@ -176,14 +180,33 @@ class OrganizerController extends Controller
 
     public function dashboard()
     {
-        $organizer = Organizer::where('user_id',Auth::user()->id)->first();
-        return view('organizer.dashboard',compact('organizer'));
+
+        $tab = 'dashboard';
+        $organizer = Auth::user()->organizers()->first();
+        return view('organizer.dashboard',compact('organizer', 'tab'));
         // return $organizer;
     }
 
     public function settings(Organizer $organizer)
     {
-        $organizer = Auth::user()->organizer()->whereUserId(auth()->id())->first();
-        return view('organizer.settings',compact('organizer'));
+
+        $tab = 'settings';
+        $organizer = Auth::user()->organizers()->first();
+        if ($this->check_if_user_own_this_org($organizer))
+        {
+            return view('organizer.settings',compact('organizer','tab'));
+        }
+        else
+        {
+            \Session::flash('status', 'Access Denied');
+            \Session::flash('alert-class', 'alert-danger');
+            return Redirect::route('home');
+        }
+
+    }
+
+    public function check_if_user_own_this_org(Organizer $organizer)
+    {
+       return $organizer->user->id == Auth::user()->id;
     }
 }

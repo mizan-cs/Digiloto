@@ -3,6 +3,7 @@
 @section('content')
 
     <div class="container-fluid">
+
         <h1>Welcome {{$organizer->title}}</h1>
         <div class="row">
             <div class="col-xl-6">

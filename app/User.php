@@ -39,7 +39,7 @@ class User extends \TCG\Voyager\Models\User
     ];
 
 
-    public function organizer()
+    public function organizers()
     {
         return $this->hasMany(Organizer::class);
     }
