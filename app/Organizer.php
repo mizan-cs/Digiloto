@@ -17,8 +17,6 @@ class Organizer extends Model
     {
         return $this->belongsTo(Organizer::class);
     }
-
-
     // public function getLogoAttribute($logo)
     // {
     // 	if ($this->logo != null) {

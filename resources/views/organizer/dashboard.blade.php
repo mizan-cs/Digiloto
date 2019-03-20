@@ -3,12 +3,7 @@
 @section('content')
 
     <div class="container-fluid">
-<<<<<<< HEAD
-        <h1>Welcome </h1>
-=======
-
         <h1>Welcome {{$organizer->title}}</h1>
->>>>>>> c8f141ab20fe7b46282fcf196621ba2653d0b362
         <div class="row">
             <div class="col-xl-6">
                 <div class="chart-statistic-box">

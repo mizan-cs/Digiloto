@@ -15,6 +15,7 @@
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet" type="text/css">
+    
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
@@ -27,6 +28,7 @@
     <link rel="stylesheet" href="{{asset('css/lib/font-awesome/font-awesome.min.css')}}">
     <link rel="stylesheet" href="{{asset('css/lib/bootstrap/bootstrap.min.css')}}">
     <link rel="stylesheet" href="{{asset('css/main.css')}}">
+    <link rel="stylesheet" href="{{asset('css/landing/landing-page.min.css')}}">
     @yield('header')
 </head>
 <body>

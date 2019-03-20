@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Game;
+use App\Organizer;
 use App\Ticket;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -42,9 +43,9 @@ class GameController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request , Organizer $organizer)
     {
-        //TODO Check the validation
+        abort_if(Auth::user()->organizers->first()->user_id !== Auth::user()->id,403); //done
 
         //dd();
         $game = new Game();
@@ -94,26 +95,32 @@ class GameController extends Controller
      */
     public function update(Request $request, Game $game)
     {
-        //TODO Check the validation
+        //Done
 
-        //dd();
-        $game->title        = $request->get('title');
-        $game->total_tickets= $request->get('total_tickets');
-        $game->start_at     = $request->get('start_at');
-        $game->end_at       = $request->get('end_at');
-        $game->rules        = $request->get('rules');
-        $game->organizer_id = Auth::user()->organizers()->first()->id;
-        $game->save();
+        if ($this->check_if_orgnizer_own_this_game()) {
+         $game->title        = $request->get('title');
+         $game->total_tickets= $request->get('total_tickets');
+         $game->start_at     = $request->get('start_at');
+         $game->end_at       = $request->get('end_at');
+         $game->rules        = $request->get('rules');
+         $game->organizer_id = Auth::user()->organizers()->first()->id;
+         $game->save();
 
-        for ($i=0;$i<$game->total_tickets;$i++)
-        {
+         for ($i=0;$i<$game->total_tickets;$i++)
+         {
             Ticket::created(array('game_id'=>$game->id));
         }
 
         \Session::flash('status', 'Your Game has been created Updated');
         \Session::flash('alert-class', 'alert-success');
         return Redirect::route('organizer.game.settings',$game);
+    }else{
+        \Session::flash('status', 'Access Denied');
+        \Session::flash('alert-class', 'alert-danger');
+        return Redirect::route('organizer.dashboard');
     }
+
+}
 
     /**
      * Remove the specified resource from storage.
@@ -128,18 +135,48 @@ class GameController extends Controller
 
     public function dashboard(Game $game)
     {
-        //TODO Check the validation
-        $tab = 'games';
-        $sub_tab = 'games-dashboard';
-        return view('organizer.game.dashboard', compact('game','tab','sub_tab'));
+        //Done
+        if ($this->check_if_orgnizer_own_this_game()) {
+            $tab = 'games';
+            $sub_tab = 'games-dashboard';
+            return view('organizer.game.dashboard', compact('game','tab','sub_tab'));
+        }else{
+            \Session::flash('status', 'Access Denied');
+            \Session::flash('alert-class', 'alert-danger');
+            return Redirect::route('organizer.dashboard');
+        }
     }
 
     public function settings(Game $game)
     {
-        //TODO Check the validation
-        $organizer = Auth::user()->organizers()->first();
-        $tab = 'games';
-        $sub_tab = 'games-settings';
-        return view('organizer.game.settings', compact('game','tab','sub_tab','organizer'));
+        //Done
+
+        if ($this->check_if_orgnizer_own_this_game()) {
+            $organizer = Auth::user()->organizers()->first();
+            $tab = 'games';
+            $sub_tab = 'games-settings';
+            return view('organizer.game.settings', compact('game','tab','sub_tab','organizer'));
+
+        }else{
+            \Session::flash('status', 'Access Denied');
+            \Session::flash('alert-class', 'alert-danger');
+            return Redirect::route('organizer.dashboard');
+        }
+
+    }
+
+
+    public function check_if_orgnizer_own_this_game()
+    {
+        $game = Auth::user()->organizers->first()->games;
+        //organizers->first()->games()->first()->organizer->id
+
+        if($game) {
+            return $game->first()->organizer->id == Auth::user()->organizers()->first()->id;
+        }
+        else{
+            return false;
+        }
+
     }
 }

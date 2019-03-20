@@ -15,8 +15,8 @@ class OrganizerController extends Controller
  public function __construct()
  {
      $tab = 'tab';
-    $this->middleware('auth');
-}
+     $this->middleware('auth');
+ }
     /**
      * Display a listing of the resource.
      *
@@ -53,6 +53,7 @@ class OrganizerController extends Controller
     public function store(Request $request)
     {
 
+        $organizer = new Organizer();
         // validate
         $rules = array(
             'title'                 => 'required|string|max:255',
@@ -71,33 +72,37 @@ class OrganizerController extends Controller
 
             if (Auth::user()->organizers()->count() == 0){
 
-               if ($file = $request->file('logo')){
-                $name = time() . $file->getClientOriginalName();
-                $file->move('images',$name);
-                $data['logo'] = $name;
-            }
+                $organizer->title = $request->get('title');
+                $organizer->email = $request->get('email');
+                $organizer->details = $request->get('details');
+                if ($file = $request->file('logo')){
+                    $name = time() . $file->getClientOriginalName();
+                    $file->move('images',$name);
+                    $organizer->logo = $name;
+                }
+                $organizer->user_id = Auth::user()->id;
 
-               $data['user_id'] = Auth::user()->id;
-               Organizer::create($data);
+                $organizer->save();
+                
 
-               $user = Auth::user()->id;
-               $user->is_operator = true;
-               $user->save();
-               $organizer = Auth::user()->organizers()->first();
+                $user = Auth::user();
+                $user->is_operator = true;
+                $user->save();
+                $organizer = Auth::user()->organizers()->first();
 
-               \Session::flash('status', 'Your operator has been created');
-               \Session::flash('alert-class', 'alert-success');
-               return \Redirect::route('organizer.dashboard',compact('organizer'));
-        }else{
+                \Session::flash('status', 'Your operator has been created');
+                \Session::flash('alert-class', 'alert-success');
+                return \Redirect::route('organizer.dashboard',compact('organizer'));
+            }else{
 
                 \Session::flash('status', 'You are already a operator. Welcome to your dashboard');
                 \Session::flash('alert-class', 'alert-danger');
                 return \Redirect::route('organizer.create');
+            }
+
         }
 
     }
-
-}
 
     /**
      * Display the specified resource.
@@ -183,20 +188,25 @@ class OrganizerController extends Controller
     public function dashboard()
     {
         //TODO Check the validation
-        $tab = 'dashboard';
-        $organizer = Auth::user()->organizers()->first();
-        return view('organizer.dashboard',compact('organizer', 'tab'));
+        if($this->check_if_user_own_this_org()){
+            $tab = 'dashboard';
+            $organizer = Auth::user()->organizers()->first();
+            return view('organizer.dashboard',compact('organizer', 'tab'));
         // return $organizer;
+        }else{
+            \Session::flash('status', 'Access Denied');
+            \Session::flash('alert-class', 'alert-danger');
+            return Redirect::route('home');
+        }
     }
 
     public function settings(Organizer $organizer)
     {
-
         //TODO Check the validation
         $tab = 'settings';
-        $organizer = Auth::user()->organizers()->first();
-        if ($this->check_if_user_own_this_org($organizer))
+        if ($this->check_if_user_own_this_org())
         {
+            $organizer = Auth::user()->organizers()->first();
             return view('organizer.settings',compact('organizer','tab'));
         }
         else
@@ -208,9 +218,15 @@ class OrganizerController extends Controller
 
     }
 
-    public function check_if_user_own_this_org(Organizer $organizer)
+    public function check_if_user_own_this_org()
     {
+        $organizer = Auth::user()->organizers()->first();
+        if($organizer) {
+            return $organizer->user->id == Auth::user()->id;
+        }
+        else{
+            return false;
+        }
 
-       return $organizer->user->id == Auth::user()->id;
     }
 }
