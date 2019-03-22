@@ -9,4 +9,9 @@ class Ticket extends Model
     protected $guarded = [
 
     ];
+
+    public function game()
+    {
+        return $this->belongsTo(Game::class);
+    }
 }

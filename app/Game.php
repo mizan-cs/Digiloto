@@ -15,4 +15,9 @@ class Game extends Model
     {
         return $this->belongsTo(Organizer::class);
     }
+
+    public function tickets()
+    {
+        return $this->hasMany(Ticket::class);
+    }
 }

@@ -40,6 +40,19 @@
                         </div>
 
                         <div class="form-group row">
+                            <label for="price" class="col-md-4 col-form-label text-md-right">Tickets Price (USD)$</label>
+
+                            <div class="col-md-6">
+                                <input id="price" type="number" class="form-control{{ $errors->has('price') ? ' is-invalid' : '' }}" name="price" value="{{ old('price') }}" required>
+                                @if ($errors->has('price'))
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $errors->first('price') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
                             <label for="start_at" class="col-md-4 col-form-label text-md-right">Start Selling at</label>
 
                             <div class="col-md-6">

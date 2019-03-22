@@ -37,4 +37,9 @@ class Organizer extends Model
     {
         return $this->hasMany(Game::class);
     }
+
+    public function tickets()
+    {
+        return $this->hasMany(Ticket::class);
+    }
 }

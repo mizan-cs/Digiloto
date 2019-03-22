@@ -55,8 +55,15 @@ class GameController extends Controller
         $game->end_at       = $request->get('end_at');
         $game->rules        = $request->get('rules');
         $game->organizer_id = Auth::user()->organizers()->first()->id;
-
         $game->save();
+
+        for ($i=0;$i<$game->total_tickets;$i++)
+        {
+            $ticket = new Ticket();
+            $ticket->game_id = $game->id;
+            $ticket->price = $request->get('price');
+            $ticket->save();
+        }
 
         \Session::flash('status', 'Your Game has been created successfully. Please Go to dashboard to Make the game live');
         \Session::flash('alert-class', 'alert-success');
@@ -105,12 +112,6 @@ class GameController extends Controller
          $game->rules        = $request->get('rules');
          $game->organizer_id = Auth::user()->organizers()->first()->id;
          $game->save();
-
-         for ($i=0;$i<$game->total_tickets;$i++)
-         {
-            Ticket::created(array('game_id'=>$game->id));
-        }
-
         \Session::flash('status', 'Your Game has been created Updated');
         \Session::flash('alert-class', 'alert-success');
         return Redirect::route('organizer.game.settings',$game);
