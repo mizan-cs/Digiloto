@@ -38,6 +38,8 @@ Route::group(['middleware' => ['operator']], function () {
 
     //tickets
     Route::get('/operator/games/dashboard/tickets/{game}','TicketController@dashboard')->name('organizer.game.dashboard.tickets');
+    Route::get('/operator/games/dashboard/tickets/update/{ticket}','TicketController@update')->name('organizer.game.dashboard.tickets.update');
+
 
 });
 

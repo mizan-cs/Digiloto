@@ -51,7 +51,7 @@
      <div class="container">
         <div class="content">
             <div class="title m-b-md">
-                Welcome To DigiLoto
+                Welcome To DigiLotto
             </div>
 
             <div class="links">

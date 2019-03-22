@@ -74,7 +74,7 @@ class TicketController extends Controller
      */
     public function update(Request $request, Ticket $ticket)
     {
-        //
+        //$game = $ticket->game()->
     }
 
     /**
