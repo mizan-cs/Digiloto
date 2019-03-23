@@ -7,6 +7,7 @@ use App\Organizer;
 use Illuminate\Http\Request;
 use App\User;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\View\View;
 
 class OrganizerController extends Controller
 {
@@ -14,7 +15,8 @@ class OrganizerController extends Controller
 
  public function __construct()
  {
-     $tab = 'tab';
+     $tab = 'dashboard';
+     \Illuminate\Support\Facades\View::share(['tab'=>$tab]);
      $this->middleware('auth');
  }
     /**
@@ -92,7 +94,7 @@ class OrganizerController extends Controller
 
                 \Session::flash('status', 'Your operator has been created');
                 \Session::flash('alert-class', 'alert-success');
-                return \Redirect::route('organizer.dashboard',compact('organizer'));
+                return \Redirect::route('organizer.dashboard');
             }else{
 
                 \Session::flash('status', 'You are already a operator. Welcome to your dashboard');
@@ -187,34 +189,24 @@ class OrganizerController extends Controller
 
     public function dashboard()
     {
-        //TODO Check the validation
-        if($this->check_if_user_own_this_org()){
-            $tab = 'dashboard';
-            $organizer = Auth::user()->organizers()->first();
-            return view('organizer.dashboard',compact('organizer', 'tab'));
-        // return $organizer;
-        }else{
-            \Session::flash('status', 'Access Denied');
-            \Session::flash('alert-class', 'alert-danger');
-            return Redirect::route('home');
+        $tab = 'dashboard';
+        if (Auth::user()->organizers()->count() == 0)
+        {
+            \Session::flash('status', 'You have to create your organizer profile first to go dashboard');
+            \Session::flash('alert-class', 'alert-warning');
+            return Redirect::route('organizer.create');
         }
+
+        $organizer = Auth::user()->organizers()->first();
+        return view('organizer.dashboard',compact('organizer', 'tab'));
     }
 
-    public function settings(Organizer $organizer)
+    public function settings()
     {
         //TODO Check the validation
         $tab = 'settings';
-        if ($this->check_if_user_own_this_org())
-        {
-            $organizer = Auth::user()->organizers()->first();
-            return view('organizer.settings',compact('organizer','tab'));
-        }
-        else
-        {
-            \Session::flash('status', 'Access Denied');
-            \Session::flash('alert-class', 'alert-danger');
-            return Redirect::route('home');
-        }
+        $organizer = Auth::user()->organizers()->first();
+        return view('organizer.settings',compact('organizer','tab'));
 
     }
 
