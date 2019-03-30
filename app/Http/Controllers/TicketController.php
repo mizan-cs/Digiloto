@@ -74,7 +74,20 @@ class TicketController extends Controller
      */
     public function update(Request $request, Ticket $ticket)
     {
-        //$game = $ticket->game()->
+        if ($this->check_if_orgnizer_own_this_game()) {
+            $ticket->title = $request->get('title');
+            $ticket->price = $request->get('price');
+            $ticket->save();
+
+            \Session::flash('status', 'Tickets has been updated.');
+            \Session::flash('alert-class', 'alert-success');
+            return \Redirect::route('organizer.game.dashboard.tickets',$ticket->game);
+
+        }else{
+            \Session::flash('status', 'Access Denied');
+            \Session::flash('alert-class', 'alert-danger');
+            //return Redirect::route('organizer.dashboard');
+        }
     }
 
     /**
@@ -85,7 +98,25 @@ class TicketController extends Controller
      */
     public function destroy(Ticket $ticket)
     {
-        //
+        if ($this->check_if_orgnizer_own_this_game()) {
+
+            if ($ticket->is_sold)
+            {
+                \Session::flash('status', 'This tickets has been sold out!');
+                \Session::flash('alert-class', 'alert-warning');
+                return \Redirect::route('organizer.game.dashboard.tickets',$ticket->game);
+            }
+            $ticket->delete();
+
+            \Session::flash('status', 'Tickets has been deleted.');
+            \Session::flash('alert-class', 'alert-success');
+            return \Redirect::route('organizer.game.dashboard.tickets',$ticket->game);
+
+        }else{
+            \Session::flash('status', 'Access Denied');
+            \Session::flash('alert-class', 'alert-danger');
+            return Redirect::route('organizer.dashboard');
+        }
     }
 
     public function dashboard(Game $game)
@@ -98,6 +129,57 @@ class TicketController extends Controller
             $sub_tab = 'games-tickets';
 
             return view('organizer.game.tickets', compact('tab','sub_tab','game'));
+
+        }else{
+            \Session::flash('status', 'Access Denied');
+            \Session::flash('alert-class', 'alert-danger');
+            return Redirect::route('organizer.dashboard');
+        }
+    }
+
+    public function disable(Ticket $ticket)
+    {
+
+        if ($this->check_if_orgnizer_own_this_game()) {
+            if ($ticket->is_sold)
+            {
+                \Session::flash('status', 'This tickets has been sold out!');
+                \Session::flash('alert-class', 'alert-warning');
+                return \Redirect::route('organizer.game.dashboard.tickets',$ticket->game);
+            }
+
+            //dd($ticket->is_sold);
+            $ticket->is_active = false;
+            $ticket->save();
+
+            \Session::flash('status', 'Tickets has been Disabled.');
+            \Session::flash('alert-class', 'alert-success');
+            return \Redirect::route('organizer.game.dashboard.tickets',$ticket->game);
+
+        }else{
+            \Session::flash('status', 'Access Denied');
+            \Session::flash('alert-class', 'alert-danger');
+            return Redirect::route('organizer.dashboard');
+        }
+    }
+
+    public function enable(Ticket $ticket)
+    {
+
+        if ($this->check_if_orgnizer_own_this_game()) {
+
+            if ($ticket->is_sold)
+            {
+                \Session::flash('status', 'This tickets has been sold out!');
+                \Session::flash('alert-class', 'alert-warning');
+                return \Redirect::route('organizer.game.dashboard.tickets',$ticket->game);
+            }
+            $ticket->is_active = true;
+            $ticket->save();
+
+            \Session::flash('status', 'Tickets has been Enabled.');
+            \Session::flash('alert-class', 'alert-success');
+            return \Redirect::route('organizer.game.dashboard.tickets',$ticket->game);
 
         }else{
             \Session::flash('status', 'Access Denied');

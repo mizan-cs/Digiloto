@@ -12,6 +12,21 @@ use Illuminate\Support\Facades\Redirect;
 
 class GameController extends Controller
 {
+    //public $organizer;
+
+    /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+
+        $this->middleware('auth')->except('home');
+        //\View::share('organizer',$this->organizer);
+
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -22,6 +37,8 @@ class GameController extends Controller
         $organizer = Auth::user()->organizers()->first();
         $games = $organizer->games;
         $tab = 'games';
+
+        //dd($organizer);
         return view('organizer.game.index', compact('tab','organizer','games'));
     }
 
@@ -50,14 +67,14 @@ class GameController extends Controller
         //dd();
         $game = new Game();
         $game->title        = $request->get('title');
-        $game->total_tickets= $request->get('total_tickets');
+        $game->total_tickets= 90;
         $game->start_at     = $request->get('start_at');
         $game->end_at       = $request->get('end_at');
         $game->rules        = $request->get('rules');
         $game->organizer_id = Auth::user()->organizers()->first()->id;
         $game->save();
 
-        for ($i=0;$i<$game->total_tickets;$i++)
+        for ($i=0;$i<90;$i++)
         {
             $ticket = new Ticket();
             $ticket->game_id = $game->id;
@@ -79,7 +96,9 @@ class GameController extends Controller
      */
     public function show(Game $game)
     {
-        //
+
+        //dd($game->organizer);
+        return view('public.games.show', compact('game'));
     }
 
     /**
@@ -136,11 +155,12 @@ class GameController extends Controller
 
     public function dashboard(Game $game)
     {
+        $organizer = Auth::user()->organizers()->first();
         //Done
         if ($this->check_if_orgnizer_own_this_game()) {
             $tab = 'games';
             $sub_tab = 'games-dashboard';
-            return view('organizer.game.dashboard', compact('game','tab','sub_tab'));
+            return view('organizer.game.dashboard', compact('game','tab','sub_tab','organizer'));
         }else{
             \Session::flash('status', 'Access Denied');
             \Session::flash('alert-class', 'alert-danger');

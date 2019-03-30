@@ -26,18 +26,18 @@
                             </div>
                         </div>
 
-                        <div class="form-group row">
-                            <label for="total_tickets" class="col-md-4 col-form-label text-md-right">Tickets Amount</label>
+                        {{--<div class="form-group row">--}}
+                            {{--<label for="total_tickets" class="col-md-4 col-form-label text-md-right">Tickets Amount</label>--}}
 
-                            <div class="col-md-6">
-                                <input id="total_tickets" type="number" class="form-control{{ $errors->has('total_tickets') ? ' is-invalid' : '' }}" name="total_tickets" value="{{ old('total_tickets') }}" required>
-                                @if ($errors->has('total_tickets'))
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $errors->first('total_tickets') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-                        </div>
+                            {{--<div class="col-md-6">--}}
+                                {{--<input id="total_tickets" type="number" class="form-control{{ $errors->has('total_tickets') ? ' is-invalid' : '' }}" name="total_tickets" value="{{ old('total_tickets') }}" required>--}}
+                                {{--@if ($errors->has('total_tickets'))--}}
+                                    {{--<span class="invalid-feedback" role="alert">--}}
+                                        {{--<strong>{{ $errors->first('total_tickets') }}</strong>--}}
+                                    {{--</span>--}}
+                                {{--@endif--}}
+                            {{--</div>--}}
+                        {{--</div>--}}
 
                         <div class="form-group row">
                             <label for="price" class="col-md-4 col-form-label text-md-right">Tickets Price (USD)$</label>
@@ -65,6 +65,8 @@
                                 @endif
                             </div>
                         </div>
+
+
 
                         <div class="form-group row">
                             <label for="end_at" class="col-md-4 col-form-label text-md-right">End Selling at</label>

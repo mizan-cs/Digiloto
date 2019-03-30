@@ -16,11 +16,13 @@ class Operator
      */
     public function handle($request, Closure $next)
     {
-       if (Auth::check()) {
-        if (Auth::user()->isOperator()) {
-            return $next($request);
-        }
-    }
+       if (Auth::check())
+       {
+           if (Auth::user()->isOperator())
+           {
+               return $next($request);
+           }
+       }
 
     return redirect(401);
 }

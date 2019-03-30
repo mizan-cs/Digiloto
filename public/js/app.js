@@ -600,4 +600,6 @@ $(document).ready(function(){
 			$('body').removeClass('sidebar-hidden');
 		}
 	});
+
+
 });

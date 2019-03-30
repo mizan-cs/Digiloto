@@ -45,7 +45,7 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav mr-auto">
-
+                        <li class="nav-item"><a href="{{route('games')}}" class="nav-link active">Play Game</a></li>
                     </ul>
 
                     <!-- Right Side Of Navbar -->
@@ -70,7 +70,11 @@
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
 
                                     @if(Auth::user()->is_operator)
-                                        <a class="dropdown-item" href="{{route('organizer.dashboard')}}">Operator Dashboard</a>
+                                        <a class="dropdown-item" href="{{route('user.dashboard.base')}}">Operator Dashboard</a>
+                                    @endif
+
+                                    @if(Auth::user()->is_agent)
+                                        <a class="dropdown-item" href="{{route('user.dashboard.base')}}">Agent Dashboard</a>
                                     @endif
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
@@ -89,8 +93,7 @@
             </div>
         </nav>
 
-        <main class="py-4">
-
+        <main style="padding: -0px;" class="py-1">
             @yield('content')
         </main>
     </div>

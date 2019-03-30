@@ -72,7 +72,11 @@
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
 
                                     @if(Auth::user()->is_operator)
-                                        <a class="dropdown-item" href="{{route('organizer.dashboard')}}">Operator Dashboard</a>
+                                        <a class="dropdown-item" href="{{route('user.dashboard.base')}}">Operator Dashboard</a>
+                                    @endif
+
+                                    @if(Auth::user()->is_agent)
+                                        <a class="dropdown-item" href="{{route('user.dashboard.base')}}">Agent Dashboard</a>
                                     @endif
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
@@ -106,16 +110,16 @@
         </li>
 
 
-        <li class="blue-dirty">
-            <a href="">
+        <li class="blue-dirty @if($tab == 'agents') opened @endif">
+            <a href="{{route('organizer.agent.index')}}">
                 <i class="font-icon font-icon-user"></i>
-                <span class="lbl">Users</span>
+                <span class="lbl">Agents</span>
             </a>
         </li>
-        <li class="aquamarine">
-            <a href="">
+        <li class="aquamarine @if($tab == 'inbox') opened @endif">
+            <a href="{{route('organizer.message.index')}}">
                 <i class="font-icon font-icon-mail"></i>
-                <span class="lbl">Supports</span>
+                <span class="lbl">Help Desk</span>
             </a>
         </li>
         <li class="blue">
@@ -173,7 +177,7 @@
                 {!! session('status') !!}
             </div>
         @endif
-            @if ($organizer->is_approve == false)
+            @if (\Auth::user()->organizers->first()->is_approve == false)
                 <div class="alert alert-warning text-center" role="alert">
                     Your operator is pending for approval.
                 </div>

@@ -44,6 +44,10 @@ class User extends \TCG\Voyager\Models\User
         return $this->hasMany(Organizer::class);
     }
 
+    public function rooms()
+    {
+        return $this->belongsToMany(Room::class);
+    }
 
     public function isOperator()
     {
@@ -53,6 +57,21 @@ class User extends \TCG\Voyager\Models\User
         else{
             return false;
         }
+    }
+
+    public function isAgent()
+    {
+        if ($this->is_agent) {
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+
+    public function agent()
+    {
+        return $this->hasOne(Agent::class);
     }
 
 }

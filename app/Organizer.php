@@ -42,4 +42,14 @@ class Organizer extends Model
     {
         return $this->hasMany(Ticket::class);
     }
+
+    public function invites()
+    {
+        return $this->hasMany(Invite::class);
+    }
+
+    public function agents()
+    {
+        return $this->hasMany(Agent::class);
+    }
 }

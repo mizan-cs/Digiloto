@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Message;
+use App\Room;
 use Illuminate\Support\Facades\Auth;
 use App\Organizer;
 use Illuminate\Http\Request;
@@ -91,6 +93,22 @@ class OrganizerController extends Controller
                 $user->is_operator = true;
                 $user->save();
                 $organizer = Auth::user()->organizers()->first();
+
+
+                $room  = new Room();
+                $room->sender_id = 1;
+                $room->receiver_id = $organizer->user_id;
+                $room->save();
+                $room->users()->attach($organizer->user_id);
+                $room->users()->attach(1);
+                $room->save();
+
+                $message = new Message();
+                $message->user_id = 1;
+                $message->message = "Hi, I'm here to help you. Feel free to ask any question";
+                $message->room_id = $room->id;
+                $message->save();
+
 
                 \Session::flash('status', 'Your operator has been created');
                 \Session::flash('alert-class', 'alert-success');

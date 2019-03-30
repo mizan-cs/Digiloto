@@ -45,22 +45,391 @@
             margin-bottom: 30px;
         }
     </style>
+    <link href="https://fonts.googleapis.com/css?family=Rubik:300,400,400i,500" rel="stylesheet">
+    <link href="assets/css/socicon.css" rel="stylesheet" type="text/css" media="all" />
+    <link href="assets/css/entypo.css" rel="stylesheet" type="text/css" media="all" />
+    <link href="assets/css/theme.css" rel="stylesheet" type="text/css" media="all" />
     @endsection
 
     @section('content')
-     <div class="container">
-        <div class="content">
-            <img src="data:image/png;base64,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" alt="">
-            <div class="title m-b-md">
-                Welcome To DigiLotto
-            </div>
+        <div class="main-container">
+         <section class="space-lg bg-white">
+             <div class="container">
+                 <div class="row align-items-center justify-content-around">
+                     <div class="col-12 col-md-6 col-lg-5 text-center text-md-left section-intro">
+                         <h1 class="display-3">Welcome To DigiLotto</h1>
+                         <span class="lead">
 
-            <div class="links">
-                <a href="{{route('organizer.create')}}">Become A Loto Operator</a>
-                <a href="">Play Loto Game</a>
+              </span>
+                         @guest
+                             <a href="{{route('games')}}" class="btn btn-success btn-lg">Play Lotto Game</a>
+                         @else
+                             @if(Auth::user()->is_operator)
+                                 <a class="btn btn-success btn-lg" href="{{route('organizer.dashboard')}}">My Dashboard</a>
+                             @elseif(Auth::user()->is_agent)
+                                 <a class="btn btn-success btn-lg" href="{{route('agent.dashboard')}}">My Dashboard</a>
+                             @else
+                                 <a class="btn btn-success btn-lg" href="{{route('organizer.create')}}">Become A Lotto Operator</a>
+                             @endif
+                         @endif
+                     </div>
+                     <!--end of col-->
+                     <div class="col-12 col-md-6 col-lg-6">
+                         <img alt="Image" class="img-fluid w-100" src="https://i.ibb.co/Vq2TY2N/Digilotto-02.png">
+                     </div>
+                     <!--end of col-->
+                 </div>
+                 <!--end of row-->
+             </div>
+             <!--end of container-->
+         </section>
+         <!--end of section-->
+         <section class="flush-with-above bg-white">
+             <div class="container">
+                 <div class="row">
+                     <div class="col-12 text-center">
+                         <h4>Used by designers from these great companies</h4>
+                         <ul class="list-inline list-inline-large">
+                             <li class="list-inline-item">
+                                 <img alt="Image" class="logo" src="assets/img/logo-paypal.png">
+                             </li>
+                             <li class="list-inline-item">
+                                 <img alt="Image" class="logo" src="assets/img/logo-slack.png">
+                             </li>
+                             <li class="list-inline-item">
+                                 <img alt="Image" class="logo" src="assets/img/logo-invision.png">
+                             </li>
+                             <li class="list-inline-item">
+                                 <img alt="Image" class="logo" src="assets/img/logo-intercom.png">
+                             </li>
+                         </ul>
+                     </div>
+                     <!--end of col-->
+                 </div>
+                 <!--end of row-->
+             </div>
+             <!--end of container-->
+         </section>
+         <!--end of section-->
+         <section>
+             <div class="container">
+                 <div class="row justify-content-center text-center section-intro">
+                     <div class="col-12 col-md-9 col-lg-8">
+                         <span class="title-decorative">Welcome Home</span>
+                         <h2 class="display-4">Greatly simplified workflow</h2>
+                         <span class="lead">An opportunity to introduce the major benefits of your product and set the scene for what's to come</span>
 
-            </div>
-        </div>
-    </div>
+                     </div>
+                     <!--end of col-->
+                 </div>
+                 <!--end of row-->
+                 <div class="row justify-content-around">
 
+                     <div class="col-12 col-lg-6 mb-4">
+                         <div class="tab-content">
+                             <div class="tab-pane fade show active" id="content-1" role="tabpanel">
+                                 <img alt="Image" class="img-fluid w-100" src="assets/img/graphic-bike.svg">
+                             </div>
+                             <div class="tab-pane fade" id="content-2" role="tabpanel">
+                                 <img alt="Image" class="img-fluid w-100" src="assets/img/graphic-phone-actions.svg">
+                             </div>
+                             <div class="tab-pane fade" id="content-3" role="tabpanel">
+                                 <img alt="Image" class="img-fluid w-100" src="assets/img/graphic-imac-interface.svg">
+                             </div>
+                         </div>
+                     </div>
+                     <!--end of col-->
+                     <div class="col-lg-5 col-md-8">
+                         <ul class="nav nav-cards" role="tablist">
+                             <li>
+                                 <a class="card active" data-toggle="tab" href="#content-1" role="tab" aria-controls="content-1" aria-selected="true">
+                                     <div class="card-body">
+                                         <h5>Armed and Fabulous</h5>
+                                         <p>
+                                             A self-contained unit of a discourse in writing dealing with a particular point or idea. A paragraph consists of one or more sentences.
+                                         </p>
+                                     </div>
+                                 </a>
+                             </li>
+                             <li>
+                                 <a class="card" data-toggle="tab" href="#content-2" role="tab" aria-controls="content-2" aria-selected="false">
+                                     <div class="card-body">
+                                         <h5>Content First</h5>
+                                         <p>
+                                             A paragraph, from the Greek paragraphos is a self-contained unit of a discourse in writing dealing with a particular point or idea.
+                                         </p>
+                                     </div>
+                                 </a>
+                             </li>
+                             <li>
+                                 <a class="card" data-toggle="tab" href="#content-3" role="tab" aria-controls="content-3" aria-selected="false">
+                                     <div class="card-body">
+                                         <h5>All in one place</h5>
+                                         <p>
+                                             A self-contained unit of a discourse in writing dealing with a particular point or idea. A paragraph consists of one or more sentences.
+                                         </p>
+                                     </div>
+                                 </a>
+                             </li>
+                         </ul>
+                     </div>
+                     <!--end of col-->
+                 </div>
+                 <!--end of row-->
+             </div>
+             <!--end of container-->
+         </section>
+         <!--end of section-->
+         <section>
+             <div class="container">
+                 <div class="row justify-content-center text-center section-intro">
+                     <div class="col-12 col-md-9 col-lg-8">
+                         <span class="title-decorative">Light On Fuss</span>
+                         <h2 class="display-4">Heavy on swish looks</h2>
+                         <span class="lead">An opportunity to introduce the major benefits of your product and set the scene for what's to come</span>
+
+                     </div>
+                     <!--end of col-->
+                 </div>
+                 <!--end of row-->
+                 <div class="row justify-content-around">
+                     <div class="col-12 col-md-6 col-lg-5">
+                         <i class="text-teal h1 icon-fingerprint"></i>
+                         <h5>Take it widescreen</h5>
+                         <p>
+                             A self-contained unit of a discourse in writing dealing with a particular point or idea. A paragraph consists of one or more sentences.
+                         </p>
+                         <div class="card">
+                             <ul class="list-group list-group-flush">
+                                 <li class="list-group-item">
+                                     <div class="media">
+                                         <i class="icon-hand mr-2"></i>
+                                         <div class="media-body">
+                                             <h6>Media</h6>
+                                             <p>
+                                                 A short description of the aforementioned facet to easily digest. No need to divulge too much information in this text area.
+                                             </p>
+                                         </div>
+                                     </div>
+                                 </li>
+                                 <li class="list-group-item">
+                                     <div class="media">
+                                         <i class="icon-layers mr-2"></i>
+                                         <div class="media-body">
+                                             <h6>Cards</h6>
+                                             <p>
+                                                 Another brief description of a facet that, as before, doesn't need to go into great detail.
+                                             </p>
+                                         </div>
+                                     </div>
+                                 </li>
+                             </ul>
+                         </div>
+                     </div>
+                     <!--end of col-->
+                     <div class="col-12 col-md-6 col-lg-5">
+                         <i class="text-purple h1 icon-tablet-mobile-combo"></i>
+                         <h5>Forget compromise</h5>
+                         <p>
+                             A self-contained unit of a discourse in writing dealing with a particular point or idea. A paragraph consists of one or more sentences.
+                         </p>
+                         <div class="card">
+                             <ul class="list-group list-group-flush">
+                                 <li class="list-group-item">
+                                     <div class="media">
+                                         <i class="icon-credit-card mr-2"></i>
+                                         <div class="media-body">
+                                             <h6>Payment</h6>
+                                             <p>
+                                                 A short description of the aforementioned facet to easily digest. No need to divulge too much information in this text area.
+                                             </p>
+                                         </div>
+                                     </div>
+                                 </li>
+                                 <li class="list-group-item">
+                                     <div class="media">
+                                         <i class="icon-game-controller mr-2"></i>
+                                         <div class="media-body">
+                                             <h6>Collaboration</h6>
+                                             <p>
+                                                 Another brief description of a facet that, as before, doesn't need to go into great detail.
+                                             </p>
+                                         </div>
+                                     </div>
+                                 </li>
+                             </ul>
+                         </div>
+                     </div>
+                     <!--end of col-->
+                 </div>
+                 <!--end of row-->
+                 <div class="row justify-content-center text-center section-outro">
+                     <div class="col-lg-4 col-md-5">
+                         <h6>Introducing a new way</h6>
+                         <p>An opportunity to introduce the major benefits of your product and set the scene for what's to come</p>
+                         <a href="#">View more features ›</a>
+                     </div>
+                     <!--end of col-->
+                 </div>
+                 <!--end of row-->
+             </div>
+             <!--end of container-->
+         </section>
+         <!--end of section-->
+
+         <section class="bg-dark">
+             <div class="container">
+                 <div class="row section-intro">
+                     <div class="col-12 text-center">
+                         <h3 class="h1">Don’t even wait, sign up now for a 30 day trial.</h3>
+                     </div>
+                     <!--end of col-->
+                 </div>
+                 <!--end of row-->
+                 <div class="row justify-content-center">
+
+                     <div class="col-12 col-md-6 col-lg-5">
+                         <div class="media">
+                             <img alt="Image" src="assets/img/avatar-male-1.jpg" class="avatar">
+                             <div class="media-body">
+                                 <p class="mb-1">
+                                     “Let’s get one thing straight, this theme’s a straight-up winner. No posers here, just beautiful design and code.”
+                                 </p>
+                                 <small>Daniel Cameron</small>
+                             </div>
+                         </div>
+                     </div>
+                     <!--end of col-->
+
+                     <div class="col-12 col-md-6 col-lg-5">
+                         <div class="media">
+                             <img alt="Image" src="assets/img/avatar-female-1.jpg" class="avatar">
+                             <div class="media-body">
+                                 <p class="mb-1">
+                                     “With Wingman, we were able to turn out a stunning landing page and compelling MVP for our SaaS web app in no time.”
+                                 </p>
+                                 <small>Caitlyn Halsy, Bench</small>
+                             </div>
+                         </div>
+                     </div>
+                     <!--end of col-->
+
+                 </div>
+                 <!--end of row-->
+             </div>
+             <!--end of container-->
+         </section>
+         <!--end of section-->
+         <footer class="bg-gray text-light footer-long">
+             <div class="container">
+                 <div class="row">
+                     <div class="col-12 col-md-3">
+
+                         <p class="text-muted">
+                             © 2019 DigiLotto
+                         </p>
+                     </div>
+                     <!--end of col-->
+                     <div class="col-12 col-md-9">
+
+                         <div class="row no-gutters">
+                             <div class="col-6 col-lg-3">
+                                 <h6>Navigate</h6>
+                                 <ul class="list-unstyled">
+                                     <li>
+                                         <a href="index.html">Overview</a>
+                                     </li>
+                                     <li>
+                                         <a href="pages-landing.html">Landing Pages</a>
+                                     </li>
+                                     <li>
+                                         <a href="pages-app.html">App Pages</a>
+                                     </li>
+                                     <li>
+                                         <a href="pages-inner.html">Inner Pages</a>
+                                     </li>
+                                 </ul>
+                             </div>
+                             <!--end of col-->
+                             <div class="col-6 col-lg-3">
+                                 <h6>Platform</h6>
+                                 <ul class="list-unstyled">
+                                     <li>
+                                         <a href="#">Mac OS &amp; iOS</a>
+                                     </li>
+                                     <li>
+                                         <a href="#">Android &amp; Chrome OS</a>
+                                     </li>
+                                     <li>
+                                         <a href="#">Windows</a>
+                                     </li>
+                                     <li>
+                                         <a href="#">Linux</a>
+                                     </li>
+                                 </ul>
+                             </div>
+                             <!--end of col-->
+                             <div class="col-6 col-lg-3">
+                                 <h6>Community</h6>
+                                 <ul class="list-unstyled">
+                                     <li>
+                                         <a href="#">Forum</a>
+                                     </li>
+                                     <li>
+                                         <a href="#">Knowledgebase</a>
+                                     </li>
+                                     <li>
+                                         <a href="#">Hire an expert</a>
+                                     </li>
+                                     <li>
+                                         <a href="#">FAQ</a>
+                                     </li>
+                                     <li>
+                                         <a href="#">Contact</a>
+                                     </li>
+                                 </ul>
+                             </div>
+                             <!--end of col-->
+                             <div class="col-6 col-lg-3">
+                                 <h6>Company</h6>
+                                 <ul class="list-unstyled">
+                                     <li>
+                                         <a href="#">About company</a>
+                                     </li>
+                                     <li>
+                                         <a href="#">History</a>
+                                     </li>
+                                     <li>
+                                         <a href="#">Team</a>
+                                     </li>
+                                     <li>
+                                         <a href="#">Investment</a>
+                                     </li>
+                                 </ul>
+                             </div>
+                             <!--end of col-->
+                         </div>
+                         <!--end of row-->
+                     </div>
+                     <!--end of col-->
+                 </div>
+                 <!--end of row-->
+             </div>
+             <!--end of container-->
+         </footer>
+     </div>
+
+@endsection
+
+@section('footer')
+    <script type="text/javascript" src="../code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script type="text/javascript" src="../cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"></script>
+    <script type="text/javascript" src="../unpkg.com/smartwizard%404.3.1/dist/js/jquery.smartWizard.js"></script>
+    <script type="text/javascript" src="../cdnjs.cloudflare.com/ajax/libs/flickity/2.1.2/flickity.pkgd.min.js"></script>
+    <script type="text/javascript" src="../unpkg.com/scrollmonitor%401.2.4/scrollMonitor.js"></script>
+    <script type="text/javascript" src="../cdnjs.cloudflare.com/ajax/libs/smooth-scroll/12.1.5/js/smooth-scroll.polyfills.min.js"></script>
+    <script type="text/javascript" src="../cdnjs.cloudflare.com/ajax/libs/prism/1.15.0/prism.min.js"></script>
+    <script type="text/javascript" src="../unpkg.com/zoom-vanilla.js%402.0.6/dist/zoom-vanilla.min.js"></script>
+    <script type="text/javascript" src="../cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="assets/js/theme.js"></script>
 @endsection

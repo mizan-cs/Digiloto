@@ -29,6 +29,9 @@ class CreateGamesTable extends Migration
             $table->text('rules')->nullable();
             $table->unsignedBigInteger('organizer_id');
             $table->foreign('organizer_id')->references('id')->on('organizers');
+            $table->string('created_by')->default('organizer');
+            $table->unsignedBigInteger('agent_id');
+            $table->foreign('agent_id')->references('id')->on('agents');
             $table->timestamps();
         });
     }

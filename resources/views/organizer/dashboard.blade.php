@@ -9,21 +9,25 @@
                 <div class="chart-statistic-box">
                     <div class="chart-txt">
                         <div class="chart-txt-top">
-                            <p><span class="unit">$</span><span class="number">1540</span></p>
+                            <p><span class="unit">$</span><span class="number">0</span></p>
                             <p class="caption">Week income</p>
                         </div>
                         <table class="tbl-data">
                             <tr>
-                                <td class="price color-purple">120$</td>
-                                <td>Orders</td>
+                                <td class="price color-purple">$0</td>
+                                <td>Pending</td>
                             </tr>
                             <tr>
-                                <td class="price color-yellow">15$</td>
-                                <td>Investments</td>
+                                <td class="price color-yellow">$0</td>
+                                <td>New Orders</td>
                             </tr>
                             <tr>
-                                <td class="price color-lime">55$</td>
-                                <td>Others</td>
+                                <td class="price color-lime">$0</td>
+                                <td>Current Balance</td>
+                            </tr>
+                            <tr>
+                                <td class="price color-lime">$0</td>
+                                <td>Withdrawn</td>
                             </tr>
                         </table>
                     </div>
