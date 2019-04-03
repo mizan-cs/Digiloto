@@ -1,39 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="919407f9-09d9-43ff-a7d6-0b2d244d77c8" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/resources/views/agent/games.blade.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/views/agent/settings.blade.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/views/agent/settings/basic.blade.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/views/agent/settings/media.blade.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/views/agent/settings/payment.blade.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/views/public/games/checkout.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/gigiloto.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/gigiloto.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Agent.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Agent.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Game.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Game.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/AgentController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/AgentController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/GameController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/GameController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/HomeController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/HomeController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/RoomController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/RoomController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Ticket.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Ticket.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/composer.json" beforeDir="false" afterPath="$PROJECT_DIR$/composer.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/composer.lock" beforeDir="false" afterPath="$PROJECT_DIR$/composer.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mail.html" beforeDir="false" afterPath="$PROJECT_DIR$/mail.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/agent/base.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/agent/base.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/agent/inbox.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/agent/inbox.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/agent/message.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/agent/message.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/home.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/home.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/layouts/app.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/layouts/app.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/organizer/game/base.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/organizer/game/base.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/organizer/game/tickets.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/organizer/game/tickets.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/organizer/inbox.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/organizer/inbox.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/organizer/message.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/organizer/message.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/public/games/show.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/public/games/show.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/welcome.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/welcome.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
-    </list>
+    <list default="true" id="919407f9-09d9-43ff-a7d6-0b2d244d77c8" name="Default Changelist" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -84,8 +52,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/resources/views/layouts/app.blade.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="390">
-              <caret line="51" column="72" selection-start-line="51" selection-start-column="72" selection-end-line="51" selection-end-column="72" />
+            <state relative-caret-position="312">
+              <caret line="48" column="79" selection-start-line="48" selection-start-column="73" selection-end-line="48" selection-end-column="79" />
             </state>
           </provider>
         </entry>
@@ -462,12 +430,12 @@
       <workItem from="1554148184086" duration="530000" />
       <workItem from="1554221382975" duration="11319000" />
       <workItem from="1554234079151" duration="8930000" />
-      <workItem from="1554308912998" duration="10620000" />
+      <workItem from="1554308912998" duration="11236000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="159222000" />
+    <option name="totallyTimeSpent" value="159838000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
@@ -903,8 +871,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/resources/views/layouts/app.blade.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="390">
-          <caret line="51" column="72" selection-start-line="51" selection-start-column="72" selection-end-line="51" selection-end-column="72" />
+        <state relative-caret-position="312">
+          <caret line="48" column="79" selection-start-line="48" selection-start-column="73" selection-end-line="48" selection-end-column="79" />
         </state>
       </provider>
     </entry>
