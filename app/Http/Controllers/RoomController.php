@@ -27,11 +27,17 @@ class RoomController extends Controller
         $rooms = Auth::user()->rooms;
         if (Auth::user()->isOperator())
         {
-            return view('organizer.inbox', compact('rooms'));
+            $room = $rooms->first();
+            return \Redirect::route('organizer.message.show',$room);
+            //return view('organizer.inbox', compact('rooms'));
         }
         elseif (Auth::user()->isAgent())
         {
-            return view('agent.inbox', compact('rooms'));
+            //dd(Auth::user()->name);
+            $room = $rooms->first();
+            //dd($room);
+            return \Redirect::route('agent.message.show',$room);
+            //return view('agent.inbox', compact('rooms'));
         }
         else
         {
@@ -77,11 +83,13 @@ class RoomController extends Controller
         $rooms = Auth::user()->rooms;
         if (Auth::user()->isOperator())
         {
-            return view('organizer.message', compact('rooms','room'));
+            $current = $room;
+            return view('organizer.message', compact('rooms','room', 'current'));
         }
         elseif (Auth::user()->isAgent())
         {
-            return view('agent.message', compact('rooms','room'));
+            $current = $room;
+            return view('agent.message', compact('rooms','room', 'current'));
         }
         else
         {

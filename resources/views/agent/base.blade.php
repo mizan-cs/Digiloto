@@ -102,7 +102,7 @@
 <nav class="side-menu">
     <ul class="side-menu-list">
         <li class="grey with-sub @if($tab == 'dashboard') opened @endif">
-            <a href="{{route('organizer.dashboard')}}">
+            <a href="{{route('agent.dashboard')}}">
                 <span>
 	                <i class="font-icon font-icon-dashboard"></i>
 	                <span class="lbl">Dashboard</span>
@@ -125,7 +125,7 @@
         </li>
 
         <li class="gold @if($tab == 'settings') opened @endif">
-            <a href="#" class="disabled">
+            <a href="{{route('agent.settings')}}" class="disabled">
                 <i class="font-icon font-icon-picture-2"></i>
                 <span class="lbl">Settings</span>
             </a>
@@ -138,27 +138,9 @@
         <header class="side-menu-title">Games</header>
         <ul class="side-menu-list">
             <li class="@if($tab == 'games') opened @endif">
-                <a href="#">
+                <a href="{{route('agent.game.index')}}">
                     <i class="tag-color green"></i>
                     <span class="lbl">Games</span>
-                </a>
-            </li>
-            <li class="@if($tab == 'create-games') opened @endif">
-                <a href="#">
-                    <i class="tag-color grey-blue"></i>
-                    <span class="lbl">Host New Games</span>
-                </a>
-            </li>
-            <li>
-                <a href="#">
-                    <i class="tag-color red"></i>
-                    <span class="lbl">Active Games</span>
-                </a>
-            </li>
-            <li>
-                <a href="#">
-                    <i class="tag-color pink"></i>
-                    <span class="lbl">Manager</span>
                 </a>
             </li>
 

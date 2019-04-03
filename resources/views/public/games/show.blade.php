@@ -1,12 +1,25 @@
 @extends('layouts.app')
 
 @section('header')
+    <script src="https://checkout.stripe.com/checkout.js"></script>
+
     <link rel="stylesheet" href="{{asset('css/lib/multipicker/multipicker.min.css')}}">
     <link rel="stylesheet" href="{{asset('css/separate/vendor/multipicker.min.css')}}">
 @endsection
 
 @section('content')
     <div class="container">
+
+            <script
+                    src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+                    data-key="pk_test_TkVNLwlHUaeKg8uUEzZJcSPw006C1Txz1x"
+                    data-amount="999"
+                    data-name="Mizanur Rahman"
+                    data-description="Example charge"
+                    data-image="https://stripe.com/img/documentation/checkout/marketplace.png"
+                    data-locale="auto">
+            </script>
+
 
         <div class="row justify-content-center">
             <div class="col-md-12">
@@ -33,26 +46,26 @@
                             <div class="row justify-content-md-center">
                                 <div class="col-md-8 text-center">
                                     <div class="card mb-4 shadow-sm">
-
-                                        <div class="card-body">
-                                            <div class="btn-group pr-0" data-toggle="buttons">
-                                                <div class="row justify-content-md-center">
-                                                    @foreach($game->tickets as $ticket)
-
-                                                        <div class="col-md-1 p-0 mt-2 ml-2">
-                                                            <label id="ticket{{$ticket->id}}" class="btn @if($ticket->is_sold) btn-success @elseif(!$ticket->is_active) btn-danger @else btn-secondary @endif  ml-0">
-                                                                <input class="ticket_button" id="ticket{{$ticket->id}}" type="checkbox" autocomplete="off" @if($ticket->is_sold) disabled @endif @if(!$ticket->is_active) disabled @endif> {{$loop->index + 1}}
-                                                            </label>
-                                                        </div>
-
-                                                    @endforeach
+                                        <form method="post" action="{{route('order.create')}}">
+                                            @csrf
+                                            <div class="card-body">
+                                                <div class="btn-group pr-0" data-toggle="buttons">
+                                                    <div class="row justify-content-md-center">
+                                                        @foreach($game->tickets as $ticket)
+                                                            <div class="col-md-1 p-0 mt-2 ml-2">
+                                                                <label id="ticket{{$ticket->id}}" class="btn @if($ticket->is_sold) btn-success @elseif(!$ticket->is_active) btn-danger @else btn-secondary @endif  ml-0">
+                                                                    <input class="ticket_button" name="tickets[]" value="{{$ticket->id}}" id="ticket{{$ticket->id}}" type="checkbox" autocomplete="off" @if($ticket->is_sold) disabled @endif @if(!$ticket->is_active) disabled @endif> {{$loop->index + 1}}
+                                                                </label>
+                                                            </div>
+                                                        @endforeach
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                        <div class="card-footer">
-                                            Clear Selection
-                                        </div>
-
+                                            <input type="hidden" name="refer" value="{{$ref}}">
+                                            <div class="card-footer">
+                                                <button type="submit" class="btn btn-success btn-block">Next</button>
+                                            </div>
+                                        </form>
                                     </div>
                                 </div>
                                 <div class="col-md-4 text-center">
@@ -63,29 +76,29 @@
                                         <form action="">
                                             <div class="card-body">
                                                 <div class="input-group">
-                                                    <input type="text" class="form-control" value="Selected" aria-label="" disabled>
+                                                    <input type="text" class="form-control" value="Price" aria-label="" disabled>
                                                     <div class="input-group-append">
-                                                        <span class="input-group-text">2</span>
-                                                        <span class="input-group-text">$10.0</span>
+                                                        <span class="input-group-text">1 ticket</span>
+                                                        <span class="input-group-text">${{$game->tickets[0]->price}}</span>
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="card-footer">
-                                                <button type="button" class="btn btn-success btn-block">Checkout</button>
-                                            </div>
+                                            {{--<div class="card-footer">--}}
+                                                {{----}}
+                                            {{--</div>--}}
                                         </form>
                                         <script>
-                                            function Clicked() {
-                                                console.log('Mizan');
-                                            }
-                                            var tickets = document.querySelector('[type="checkbox"]');
-
-                                            for (i=0; i<=tickets.length; i++)
-                                            {
-                                                tickets[i].addEventListener("change", function (evt) {
-                                                    alert('OK');
-                                                });
-                                            }
+                                            // function Clicked() {
+                                            //     console.log('Mizan');
+                                            // }
+                                            // var tickets = document.querySelector('[type="checkbox"]');
+                                            //
+                                            // for (i=0; i<=tickets.length; i++)
+                                            // {
+                                            //     tickets[i].addEventListener("change", function (evt) {
+                                            //         alert('OK');
+                                            //     });
+                                            // }
                                         </script>
                                     </div>
                                 </div>

@@ -8,7 +8,7 @@
                 {{$room->sender->name}}
             @endif
         </div>
-        <div style="height: 300px" class="card-body">
+        <div style="max-height: 300px; min-height: 350px;overflow: scroll" class="card-body">
             @foreach($room->messages as $message)
                 <div class="alert @if($message->user->id == Auth::user()->id) alert-primary @else alert-success @endif " role="alert">
                     <span data-notify="title"><strong>{{$message->user->name}}</strong></span>

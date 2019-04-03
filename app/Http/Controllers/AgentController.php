@@ -150,6 +150,8 @@ class AgentController extends Controller
                     $agent->user_id         =   $user->id;
                     $agent->organizer_id    =   $invite->organizer->id;
                     $agent->save();
+                    $agent->token           = 'rf'.$agent->id.strtolower(Str::random(20));
+                    $agent->save();
 
                     $room  = new Room();
                     $room->sender_id = $user->id;
@@ -266,9 +268,23 @@ class AgentController extends Controller
      * @param  \App\Agent  $agent
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Agent $agent)
+    public function update(Request $request)
     {
-        //
+        if (Auth::user()->isAgent())
+        {
+
+            $agent = Auth::user()->agent;
+            $agent->name = $request->get('title');
+            $agent->save();
+
+            \Session::flash('status', 'Basic Profile Updated!');
+            \Session::flash('alert-class', 'alert-success');
+
+            return \Redirect::back();
+
+        }
+
+        abort(404);
     }
 
     /**
@@ -368,5 +384,60 @@ class AgentController extends Controller
             return false;
         }
 
+    }
+
+    public function settings()
+    {
+        if (Auth::user()->isAgent())
+        {
+            $agent = Auth::user()->agent;
+            $tab = 'settings';
+            $sub_tab = 'basic';
+
+            return view('agent.settings.basic', compact('tab','agent','sub_tab'));
+        }
+        abort(404);
+    }
+
+    public function payment()
+    {
+        if (Auth::user()->isAgent())
+        {
+            $agent = Auth::user()->agent;
+            $tab = 'settings';
+            $sub_tab = 'payment';
+            return view('agent.settings.payment', compact('tab','agent','sub_tab'));
+        }
+        abort(404);
+    }
+
+    public function update_payment(Request $request)
+    {
+        if (Auth::user()->isAgent())
+        {
+            $agent = Auth::user()->agent;
+            $agent->bank = $request->get('bank');
+            $agent->save();
+
+            \Session::flash('status', 'Bank Details Updated');
+            \Session::flash('alert-class', 'alert-success');
+            return Redirect::back();
+        }
+        abort(404);
+    }
+
+    public function games()
+    {
+        $tab = 'games';
+        if (Auth::user()->isAgent())
+        {
+            $agent = Auth::user()->agent;
+            $games = $agent->organizer->games->where('is_active',true)->where('is_approve',true);
+            //dd($games);
+
+            return view('agent.games', compact('tab','agent','games'));
+        }
+
+        abort(404);
     }
 }

@@ -20,4 +20,9 @@ class Agent extends Model
     {
         return $this->hasMany(Game::class);
     }
+
+    public function getMyLink(Game $game)
+    {
+        return route('games.show',$game).'/'.$this->token;
+    }
 }

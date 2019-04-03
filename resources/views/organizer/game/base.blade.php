@@ -2,6 +2,15 @@
 
 @section('content')
 
+    @if (!$game->is_active)
+        <div class="alert alert-warning text-center" role="alert">
+            This game is not active now. <a href="{{route('organizer.game.active',$game)}}" class="alert-link">Click here to active.</a>
+        </div>
+    @else
+        <div class="alert alert-success text-center" role="alert">
+            This game is active now. <a href="{{route('organizer.game.deactivate',$game)}}" class="alert-link">Click here to deactivate.</a>
+        </div>
+    @endif
     <div class="container-fluid">
         <div class="bd-example">
             <div class="card text-center">

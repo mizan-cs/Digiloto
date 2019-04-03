@@ -62,14 +62,14 @@
 
               </span>
                          @guest
-                             <a href="{{route('games')}}" class="btn btn-success btn-lg">Play Lotto Game</a>
+                             <a href="{{route('organizer.create')}}" class="btn btn-success btn-lg">Get Started</a>
                          @else
                              @if(Auth::user()->is_operator)
                                  <a class="btn btn-success btn-lg" href="{{route('organizer.dashboard')}}">My Dashboard</a>
                              @elseif(Auth::user()->is_agent)
                                  <a class="btn btn-success btn-lg" href="{{route('agent.dashboard')}}">My Dashboard</a>
                              @else
-                                 <a class="btn btn-success btn-lg" href="{{route('organizer.create')}}">Become A Lotto Operator</a>
+                                 <a class="btn btn-success btn-lg" href="{{route('organizer.create')}}">Get Started</a>
                              @endif
                          @endif
                      </div>

@@ -32,7 +32,7 @@
     @yield('header')
 </head>
 <body>
-    <div id="app">
+    <div>
         <nav class="navbar navbar-expand-md navbar-light navbar-laravel">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">
@@ -45,7 +45,11 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav mr-auto">
-                        <li class="nav-item"><a href="{{route('games')}}" class="nav-link active">Play Game</a></li>
+                        <li class="nav-item"><a href="{{route('games')}}" class="nav-link active">Games</a></li>
+                        <li class="nav-item"><a href="#" class="nav-link active">Help</a></li>
+                        <li class="nav-item"><a href="#" class="nav-link active">Pricing</a></li>
+                        <li class="nav-item"><a href="#" class="nav-link active">Demo</a></li>
+                        <li class="nav-item"><a href="#" class="nav-link active">Support</a></li>
                     </ul>
 
                     <!-- Right Side Of Navbar -->

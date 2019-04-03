@@ -15,26 +15,17 @@
                 <div class="card-body">
                     <div style="min-height: 400px" class="row p-0">
                         <div class="col-md-4 mr-0 pr-0">
-                            <ul style="min-height:100%;max-height: 380px; margin-bottom: 10px; overflow: scroll; -webkit-overflow-scrolling: touch;" class="list-group">
+                            <div  style="max-height: 475px; min-height: 480px;overflow: scroll" class="nav flex-column nav-pills p-0 text-center" id="v-pills-tab" aria-orientation="vertical">
                                 @foreach($rooms as $room)
-                                    <a href="{{route('organizer.message.show',$room)}}">
-                                        <li class="list-group-item d-flex justify-content-between align-items-center">
-                                            @if($room->sender->id == Auth::user()->id)
-                                                {{$room->receiver->name}}
-                                            @else
-                                                {{$room->sender->name}}
-                                            @endif
-
-                                            {{--@if($room->unseen_messages->count())--}}
-                                            {{--<span class="badge badge-primary badge-pill">14</span>--}}
-                                            {{--@else--}}
-                                            {{--<span class="badge badge-primary badge-pill">14</span>--}}
-                                            {{--@endif--}}
-                                        </li>
+                                    <a style="border-radius: 0" class="nav-link @if($room->id == $current->id) active @endif mb-2" href="{{route('organizer.message.show',$room)}}" role="tab">
+                                        @if($room->sender->id == Auth::user()->id)
+                                            {{$room->receiver->name}}
+                                        @else
+                                            {{$room->sender->name}}
+                                        @endif
                                     </a>
                                 @endforeach
-
-                            </ul>
+                            </div>
                         </div>
                         <div class="col-md-8 ml-0 pl-0 border-left-0">
                             @yield('messages')

@@ -51,6 +51,7 @@ class HomeController extends Controller
     public function games()
     {
         $games = Game::ofActive()->get();
+        //dd($games[0]);
         //dd();
         return view('home', compact('games'));
     }

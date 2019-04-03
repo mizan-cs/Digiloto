@@ -65,7 +65,7 @@
                                         <tbody>
 
                                         @foreach($games as $game)
-                                            @if(!$game->isFinish())
+
                                                 <tr class="bg-white">
                                                     <th scope="row" class="w-35">
                                                         <a style="border-bottom:none" class="media align-items-center">
@@ -88,7 +88,6 @@
                                                     </td>
 
                                                 </tr>
-                                            @endif
                                         @endforeach
 
                                         </tbody>

@@ -25,8 +25,15 @@ class Game extends Model
 
     public function scopeOfActive($query)
     {
-        return $query->where('is_active',true )->where('is_approve',true)->where('is_private',false);
+        //ToDO Add If Private or not
+        return $query->where('is_active',true )->where('is_approve',true);
     }
+
+//    public function scopeGamesForAgents($query)
+//    {
+//        //ToDO Add If Private or not
+//        return $query->where('is_active',true )->where('is_approve',true);
+//    }
 
 
     public function isFinish()
@@ -38,4 +45,5 @@ class Game extends Model
     {
         return $this->belongsTo(Agent::class);
     }
+
 }

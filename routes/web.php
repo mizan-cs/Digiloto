@@ -18,9 +18,13 @@ Auth::routes();
 Route::get('/home', 'HomeController@index');
 Route::get('/home/dashboard', 'HomeController@dashboard')->name('user.dashboard.base');
 Route::get('/games', 'HomeController@games')->name('games');
-Route::get('/games/{game}', 'GameController@show')->name('games.show');
+Route::get('/games/{game}/{ref?}', 'GameController@show')->name('games.show');
+
 Route::get('/operator/become','OrganizerController@create')->name('organizer.create');
-Route::post('/operator/become','OrganizerController@store')->name('organizer.store');
+Route::post('/operator/become','OrganizerController@store')->name('organizer.create');
+
+Route::post('/games/checkout/', 'OrderController@store')->name('order.create');
+Route::post('/games/checkout/complete/{data}', 'OrderController@complete')->name('order.complete');
 
 Route::post('/operator/agents/become/{token}','AgentController@store')->name('organizer.agent.store');
 Route::get('/operator/agents/become/{token}','AgentController@create')->name('organizer.agent.create');
@@ -30,12 +34,13 @@ Route::group(['middleware' => ['operator']], function () {
 	Route::get('/operator/settings','OrganizerController@settings')->name('organizer.settings');
 	Route::post('/operator/settings','OrganizerController@update')->name('organizer.update');
 
-
 	// Game Manager
     Route::get('/operator/games','GameController@index')->name('organizer.game.index');
     Route::get('/operator/games/dashboard/{game}','GameController@dashboard')->name('organizer.game.dashboard');
     Route::get('/operator/games/settings/{game}','GameController@settings')->name('organizer.game.settings');
     Route::post('/operator/games/update/{game}','GameController@update')->name('organizer.game.update');
+    Route::get('/operator/games/update/active/{game}','GameController@active')->name('organizer.game.active');
+    Route::get('/operator/games/update/deactivate/{game}','GameController@deactivate')->name('organizer.game.deactivate');
     Route::get('/operator/create','GameController@create')->name('organizer.game.create');
     Route::post('/operator/create','GameController@store')->name('organizer.game.store');
 
@@ -61,24 +66,14 @@ Route::group(['middleware' => ['operator']], function () {
 
 Route::group(['middleware' => ['agent']], function () {
     Route::get('/dashboard','AgentAdminController@dashboard')->name('agent.dashboard');
-	Route::get('/dashboard/settings','OrganizerController@settings')->name('agent.settings');
-	Route::post('/dashboard/settings','OrganizerController@update')->name('agent.update');
-
+	Route::get('/dashboard/settings', 'AgentController@settings')->name('agent.settings');
+	Route::get('/dashboard/settings/payment', 'AgentController@payment')->name('agent.settings.payment');
+	Route::post('/dashboard/settings/payment', 'AgentController@update_payment')->name('agent.settings.payment.update');
+	Route::post('/dashboard/settings', 'AgentController@update')->name('agent.update');
 
 	// Game Manager
-    Route::get('/dashboard/games','GameController@index')->name('agent.game.index');
-    Route::get('/dashboard/games/dashboard/{game}','GameController@dashboard')->name('agent.game.dashboard');
-    Route::get('/dashboard/games/settings/{game}','GameController@settings')->name('agent.game.settings');
-    Route::post('/dashboard/games/update/{game}','GameController@update')->name('agent.game.update');
-    Route::get('/dashboard/create','GameController@create')->name('agent.game.create');
-    Route::post('/dashboard/create','GameController@store')->name('agent.game.store');
+    Route::get('/dashboard/games','AgentController@games')->name('agent.game.index');
 
-    //tickets
-    Route::get('/dashboard/games/dashboard/tickets/{game}','TicketController@dashboard')->name('agent.game.dashboard.tickets');
-    Route::get('/dashboard/games/dashboard/tickets/disable/{ticket}','TicketController@disable')->name('agent.game.dashboard.tickets.disable');
-    Route::get('/dashboard/games/dashboard/tickets/enable/{ticket}','TicketController@enable')->name('agent.game.dashboard.tickets.enable');
-    Route::get('/dashboard/games/dashboard/tickets/delete/{ticket}','TicketController@destroy')->name('agent.game.dashboard.tickets.delete');
-    Route::post('/dashboard/games/dashboard/tickets/update/{ticket}','TicketController@update')->name('agent.game.dashboard.tickets.update');
 
     //Messsage Controller
     Route::get('/dashboard/messages','RoomController@index')->name('agent.message.index');

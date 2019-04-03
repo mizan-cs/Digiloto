@@ -14,4 +14,9 @@ class Ticket extends Model
     {
         return $this->belongsTo(Game::class);
     }
+
+    public function order()
+    {
+        return $this->belongsTo(Order::class);
+    }
 }

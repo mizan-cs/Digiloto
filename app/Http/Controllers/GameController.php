@@ -71,6 +71,7 @@ class GameController extends Controller
         $game->start_at     = $request->get('start_at');
         $game->end_at       = $request->get('end_at');
         $game->rules        = $request->get('rules');
+        $game->is_approve   = true;
         $game->organizer_id = Auth::user()->organizers()->first()->id;
         $game->save();
 
@@ -79,6 +80,7 @@ class GameController extends Controller
             $ticket = new Ticket();
             $ticket->game_id = $game->id;
             $ticket->price = $request->get('price');
+            $ticket->number = $i+1;
             $ticket->save();
         }
 
@@ -94,11 +96,9 @@ class GameController extends Controller
      * @param  \App\Game  $game
      * @return \Illuminate\Http\Response
      */
-    public function show(Game $game)
+    public function show(Game $game, $ref = null)
     {
-
-        //dd($game->organizer);
-        return view('public.games.show', compact('game'));
+        return view('public.games.show', compact('game','ref'));
     }
 
     /**
@@ -140,6 +140,26 @@ class GameController extends Controller
         return Redirect::route('organizer.dashboard');
     }
 
+}
+
+public function active(Game $game)
+{
+    // TODO Check if operator is the owner of that game
+    $game->is_active = true;
+    $game->save();
+    \Session::flash('status', 'This game is active now');
+    \Session::flash('alert-class', 'alert-success');
+    return Redirect::back();
+}
+
+public function deactivate(Game $game)
+{
+    // TODO Check if operator is the owner of that game
+    $game->is_active = false;
+    $game->save();
+    \Session::flash('status', 'This game is deactivate now');
+    \Session::flash('alert-class', 'alert-success');
+    return Redirect::back();
 }
 
     /**
