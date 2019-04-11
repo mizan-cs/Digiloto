@@ -68,6 +68,15 @@
                                 </button>
                             </div>
                         </div>
+
+                        <div class="form-group row mt-2">
+                            <div class="col-md-6 offset-md-4">
+                                <a class="btn btn-link" href="{{ route('login') }}">
+                                    I already have a account
+                                </a>
+                            </div>
+                        </div>
+
                     </form>
                 </div>
             </div>
